@@ -88,6 +88,8 @@ function click5(){
     second.src = "../../../uploads/"+data[inner_num[0]].fields.picture
     first_text.innerText = data[inner_num[0]].fields.text
     second_text.innerText = data[inner_num[0]].fields.text
+    first.removeEventListener("click", click5);
+    second.removeEventListener("click", click6);
     
 }
 function click6(){

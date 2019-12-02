@@ -1,9 +1,11 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from quantum import views
+from . import views
 app_name = 'quantum'
 urlpatterns = [
+  path('', views.screen_list, name='screen_list'),
+  path('<int:screen_id>/', views.detail, name="detail"),
   
 ]
 

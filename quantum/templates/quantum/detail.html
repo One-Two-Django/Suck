@@ -1,0 +1,9 @@
+<h1>{{ screen.title }}</h1>
+
+
+{% for pic in screen.pic_set.all %}
+
+   <li><a href="/uploads/{{pic.picture}}/">{{pic.text}}</li>
+
+{% endfor %}
+

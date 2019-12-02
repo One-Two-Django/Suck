@@ -1,9 +1,131 @@
+<body>
+<div id="contain" style="text-align: center">
 <h1>{{ screen.title }}</h1>
+<p id = "title"><h2 id="num">4강</h2></p>
+<div id = "first_text" style="float: left; width: 45%;" ></div>
+<div id = "second_text" style="float: left; width: 45%;" ></div>
+<image id = "first" src="" width="45%" / >
+<image id = "second" src="" width="45%" />
 
 
-{% for pic in screen.pic_set.all %}
+</div>
+<a href="/">돌아가기</a>
+</body>
+<script type="text/javascript">
+var data = JSON.parse('{{ pic_list | safe }}')
+var first = document.querySelector('#first')
+var second = document.querySelector('#second')
+var title = document.querySelector('#title')
+var num  = document.querySelector('#num')
+var first_text = document.querySelector('#first_text')
+var second_text = document.querySelector('#second_text')
 
-   <li><a href="/uploads/{{pic.picture}}/">{{pic.text}}</li>
+var size = data.length
+var list_num = [];
+var inner_num = [];
 
-{% endfor %}
+list_num = shuffleRandom(size);
+num.innerText = list_num.length+"강!"
+first.src = "../../../uploads/"+data[list_num[0]].fields.picture
+second.src = "../../../uploads/"+data[list_num[1]].fields.picture
+first_text.innerText = data[list_num[0]].fields.text
+second_text.innerText = data[list_num[1]].fields.text
 
+first.addEventListener('click', click1 )
+second.addEventListener('click', click2)
+
+function click1(){
+    first.src = "../../../uploads/"+data[list_num[2]].fields.picture
+    second.src = "../../../uploads/"+data[list_num[3]].fields.picture
+    first_text.innerText = data[list_num[2]].fields.text
+    second_text.innerText = data[list_num[3]].fields.text
+    inner_num.push(list_num[0])
+    first.removeEventListener("click", click1);
+    second.removeEventListener("click", click2);
+    first.addEventListener('click', click3 )
+    second.addEventListener('click', click4)
+}
+function click2(){
+    first.src = "../../../uploads/"+data[list_num[2]].fields.picture
+    second.src = "../../../uploads/"+data[list_num[3]].fields.picture
+    first_text.innerText = data[list_num[2]].fields.text
+    second_text.innerText = data[list_num[3]].fields.text
+    inner_num.push(list_num[1])
+    first.removeEventListener("click", click1);
+    second.removeEventListener("click", click2);
+    first.addEventListener('click', click3 )
+    second.addEventListener('click', click4)
+}
+function click3(){
+    num.innerText = "결승"
+    inner_num.push(list_num[2])
+    first.src = "../../../uploads/"+data[inner_num[0]].fields.picture
+    second.src = "../../../uploads/"+data[inner_num[1]].fields.picture
+    first_text.innerText = data[inner_num[0]].fields.text
+    second_text.innerText = data[inner_num[1]].fields.text
+    
+    first.removeEventListener("click", click3);
+    second.removeEventListener("click", click4);
+    first.addEventListener('click', click5 )
+    second.addEventListener('click', click6)
+}
+function click4(){
+    num.innerText = "결승"
+    inner_num.push(list_num[3])
+    first.src = "../../../uploads/"+data[inner_num[0]].fields.picture
+    second.src = "../../../uploads/"+data[inner_num[1]].fields.picture
+    first_text.innerText = data[inner_num[0]].fields.text
+    second_text.innerText = data[inner_num[1]].fields.text
+    
+    first.removeEventListener("click", click3);
+    second.removeEventListener("click", click4);
+    first.addEventListener('click', click5 )
+    second.addEventListener('click', click6)
+}
+function click5(){
+    num.innerText = "우승자는! "+data[inner_num[0]].fields.text
+    first.src = "../../../uploads/"+data[inner_num[0]].fields.picture
+    second.src = "../../../uploads/"+data[inner_num[0]].fields.picture
+    first_text.innerText = data[inner_num[0]].fields.text
+    second_text.innerText = data[inner_num[0]].fields.text
+    
+}
+function click6(){
+    num.innerText = "우승자는! "+data[inner_num[1]].fields.text
+    first.src = "../../../uploads/"+data[inner_num[1]].fields.picture
+    second.src = "../../../uploads/"+data[inner_num[1]].fields.picture
+    first_text.innerText = data[inner_num[1]].fields.text
+    second_text.innerText = data[inner_num[1]].fields.text
+    first.removeEventListener("click", click5);
+    second.removeEventListener("click", click6);
+}
+function shuffleRandom(n){
+    let ar = new Array();
+    let temp;
+    let rnum;
+
+    for(let i=0; i<n; i++){
+        ar.push(i);
+    }
+
+    //값을 서로 섞기
+    for(let i=0; i< ar.length ; i++)
+    {
+        rnum = Math.floor(Math.random()* n); //난수발생
+        temp = ar[i];
+        ar[i] = ar[rnum];
+        ar[rnum] = temp;
+    }
+    let a = 1;
+    while(a <= n / 2) {
+        a *= 2;
+    }
+    for(let i = n; i > a; i--) {
+        ar.pop();
+    }
+
+    return ar;
+}
+
+
+</script>

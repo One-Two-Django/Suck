@@ -25,7 +25,9 @@ SECRET_KEY = '3-7042e5t0*u-3)4*ubnjd2o%#2%))p-fv2m!oyp=xh)z*y_t+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'yuicrafts.xyz',
+]
 
 
 # Application definition
